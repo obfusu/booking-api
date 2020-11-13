@@ -1,0 +1,9 @@
+{
+  "mongoUrl": "mongodb://localhost/test",
+  "mongoOptions": {
+    "useNewUrlParser": true,
+    "useUnifiedTopology": true
+  },
+  "jwtSecret": "eBNwUC8zDZQudCZp9bB658YGkJWDRf",
+  "appPort": 3000
+}
