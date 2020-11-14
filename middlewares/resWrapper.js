@@ -26,7 +26,6 @@ async function resWrapper (ctx, next) {
   }
 
   try {
-    ctx.state.reqId = uuid.v4()
     await next()
 
     // If success
