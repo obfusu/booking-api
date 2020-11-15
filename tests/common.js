@@ -1,14 +1,25 @@
 const initServer = require('../api')
 const mongo = require('../db/mongo')
 
-const VALID_CREDS = {
+const ADMIN_CREDS = {
   email: 'admin@cmt.com',
+  hash: ''
+}
+
+const NON_ADMIN_USER_CREDS = {
+  email: 'user@cmt.com',
   hash: ''
 }
 
 const BAD_CREDS = {
   name: 'wrong',
   hash: 'wrong'
+}
+
+const JWT_ERRORS = {
+  EMPTY: 'jwt must be provided',
+  MALFORMED: 'jwt malformed',
+  EXPIRED: 'jwt expired'
 }
 
 async function setup () {
@@ -21,8 +32,10 @@ async function teardown () {
 }
 
 module.exports = {
-  VALID_CREDS,
+  ADMIN_CREDS,
+  NON_ADMIN_USER_CREDS,
   BAD_CREDS,
+  JWT_ERRORS,
   setup,
   teardown
 }
