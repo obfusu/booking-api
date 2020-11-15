@@ -3,9 +3,15 @@ const SEAT_STATUS = {
   BOOKED: 'booked'
 }
 
+const COLLECTIONS = {
+  SEATS: 'seats',
+  USERS: 'users'
+}
+
 const NODE_ENV = process.env.NODE_ENV || ''
 
 module.exports = {
   SEAT_STATUS,
-  NODE_ENV
+  NODE_ENV,
+  COLLECTIONS
 }
