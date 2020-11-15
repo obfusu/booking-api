@@ -4,10 +4,12 @@
   "description": "",
   "main": "api.js",
   "scripts": {
+    "preinstall": "git config core.hooksPath hooks",
     "test": "jest",
-    "test-coverage": "jest --coverage"
+    "test-coverage": "jest --coverage",
+    "lint": "standard"
   },
-  "author": "",
+  "author": "77ganesh",
   "license": "ISC",
   "dependencies": {
     "bunyan": "^1.8.14",

@@ -1,0 +1,8 @@
+#!/bin/bash
+# TODO: handle case where staged files != local changes
+npm run lint
+if [ $? -ne 0 ]; then
+  echo
+  echo "Please fix linting errors before committing..."
+  exit 1
+fi
