@@ -1,6 +1,3 @@
-const initServer = require('../api')
-const mongo = require('../db/mongo')
-
 const ADMIN_CREDS = {
   email: 'admin@cmt.com',
   hash: ''
@@ -22,13 +19,10 @@ const JWT_ERRORS = {
   EXPIRED: 'jwt expired'
 }
 
-async function setup () {
-  const appServer = await initServer()
-  return appServer.callback()
-}
-
-async function teardown () {
-  return mongo.closeDb()
+const SAMPLE_PASSENGER = {
+  name: 'Lorem Ipsum',
+  age: 55,
+  phone: '11111111111'
 }
 
 module.exports = {
@@ -36,6 +30,5 @@ module.exports = {
   NON_ADMIN_USER_CREDS,
   BAD_CREDS,
   JWT_ERRORS,
-  setup,
-  teardown
+  SAMPLE_PASSENGER
 }

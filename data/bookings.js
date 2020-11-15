@@ -3,7 +3,7 @@ const { COLLECTIONS, SEAT_STATUS } = require('../utils/constants')
 
 const MESSAGES = {
   BOOKING_SUCCESS: 'successfully reserved',
-  BOOKING_FAILED: 'booking failed, please check seatNumber and check again',
+  BOOKING_FAILED: 'booking failed, please check seat number and check again',
   RESET_SUCCESS: 'all seats successfully reset'
 }
 

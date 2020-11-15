@@ -2,14 +2,14 @@ const request = require('supertest')
 const config = require('config')
 const jwt = require('jsonwebtoken')
 const { ERRORS } = require('../utils/errors')
+const { setup, teardown } = require('./common/utils')
+
 const {
   NON_ADMIN_USER_CREDS,
   ADMIN_CREDS,
   BAD_CREDS,
-  JWT_ERRORS,
-  setup,
-  teardown
-} = require('./common')
+  JWT_ERRORS
+} = require('./common/constants')
 
 let app
 let adminToken
