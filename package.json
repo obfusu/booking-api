@@ -7,8 +7,10 @@
     "preinstall": "git config core.hooksPath hooks",
     "test": "jest",
     "test-coverage": "jest --coverage",
+    "open-coverage-report": "opener ./coverage/lcov-report/index.html",
     "lint": "standard",
-    "docs": "jsdoc -c .jsdoc.json",
+    "jsdoc": "jsdoc -c .jsdoc.json",
+    "open-jsdoc": "opener ./jsdoc/index.html",
     "start": "node api.js",
     "start-debug": "DEBUG=cmt-debug* node api.js"
   },
@@ -29,6 +31,7 @@
   "devDependencies": {
     "jest": "^26.6.3",
     "jsdoc": "^3.6.6",
+    "opener": "^1.5.2",
     "standard": "^16.0.1",
     "supertest": "^6.0.1"
   },
