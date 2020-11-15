@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - 14
+services: mongodb
+before_script:
+  - sleep 15
+  - node dev/initDb.js
