@@ -1,5 +1,12 @@
 ## Quickstart
 
+Required softwares
+```
+node 12+
+mongodb 3.6+
+```
+
+Clone and get started
 ```
 git clone https://github.com/77ganesh/booking-api.git
 cd booking-api
@@ -12,8 +19,7 @@ Make sure mongodb is up and running on local
 
 This app will use "test" db
 
-
-If mongodb is on docker non standard network or you want to use
+If mongodb is on docker network, or not on localhost:27017 or you want to use
 different db, modify the details at `./config/default.json`
 ```
 node dev/initDb.js
