@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "login",
+			"name": "login admin",
 			"event": [
 				{
 					"listen": "test",
@@ -26,6 +26,45 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"email\": \"admin@createmytrip.com\",\n    \"hash\": \"b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{endpoint}}/login",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login non admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8405ce39-cda8-407c-bf16-06ac0d7cc00a",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"token\", \"Bearer \" + jsonData.result.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"user@createmytrip.com\",\n    \"hash\": \"b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
