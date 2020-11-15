@@ -13,6 +13,7 @@ async function initServer () {
 }
 
 async function startServer () {
+  /* istanbul ignore next */
   if (NODE_ENV !== 'test') {
     const server = await initServer()
     server.listen(config.appPort, () => {

@@ -24,13 +24,13 @@ router.post('/login', async ctx => {
   throw UnauthorizedError(ERRORS.BAD_CREDS)
 })
 
-router.post('/seat/reserve', jwtAuth, async ctx => {
+router.post('/seats/reserve', jwtAuth, async ctx => {
   const params = ctx.request.body
   const { seatNumber, passenger } = params
   ctx.state.result = await bookings.reserveSeat(seatNumber, passenger)
 })
 
-router.post('/seat/reset', jwtAuth, async ctx => {
+router.post('/seats/reset', jwtAuth, async ctx => {
   if (!ctx.state.user?.isAdmin) {
     throw UnauthorizedError(ERRORS.NOT_ADMIN)
   }
