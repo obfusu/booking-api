@@ -1,40 +1,32 @@
 const Router = require('koa-router')
+const api = require('koa-router-version')
 const router = new Router()
 
-const config = require('config')
-const jwt = require('jsonwebtoken')
-const jwtSecret = config.jwtSecret
-const users = require('../data/users')
-const bookings = require('../data/bookings')
-const jwtAuth = require('../middlewares/auth')
-const { ERRORS, UnauthorizedError } = require('../utils/errors')
+const routesArray = require('./routes')
 
-router.post('/login', async ctx => {
-  const params = ctx.request.body
-  const data = await users.getUser(params.email)
+let i
+for (i = 0; i < routesArray.length; i++) {
+  const currentRoute = routesArray[i]
 
-  // TODO: use constant time string comparision to prevent timing attacks
-  if (data && data.hash === params.hash) {
-    const token = jwt.sign({ email: data._id, isAdmin: data.isAdmin, expiresIn: '15m' }, jwtSecret)
-    ctx.state.result = { token }
-    return
+  const method = currentRoute.method
+  const controller = currentRoute.controller
+  const path = currentRoute.path
+  const middlewares = currentRoute.middlewares || []
+  const version = currentRoute.apiVersion
+
+  const versionedController = {}
+  versionedController[version] = controller
+
+  switch (method) {
+    case 'post':
+      router.post(path, ...middlewares, api.version(versionedController))
+      break
+
+    // we dont have any non post methods in this project
+    /* istanbul ignore next */
+    default:
+      throw Error('unknown route method encountered')
   }
-
-  // Implicit else on miss
-  throw UnauthorizedError(ERRORS.BAD_CREDS)
-})
-
-router.post('/seats/reserve', jwtAuth, async ctx => {
-  const params = ctx.request.body
-  const { seatNumber, passenger } = params
-  ctx.state.result = await bookings.reserveSeat(seatNumber, passenger)
-})
-
-router.post('/seats/reset', jwtAuth, async ctx => {
-  if (!ctx.state.user?.isAdmin) {
-    throw UnauthorizedError(ERRORS.NOT_ADMIN)
-  }
-  ctx.state.result = await bookings.resetAllSeats()
-})
+}
 
 module.exports = router
