@@ -1,4 +1,6 @@
 /**
+ * This is responsible for mounting routes
+ *
  * @module
  */
 const Router = require('koa-router')

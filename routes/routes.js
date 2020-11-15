@@ -1,3 +1,9 @@
+/**
+ * This is responsible for exporting controllers in a
+ * router agnostic format
+ *
+ * @module
+ */
 const seatsController = require('./controllers/seats')
 const authController = require('./controllers/auth')
 const { API_VERSIONS } = require('../utils/constants')
