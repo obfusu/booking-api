@@ -3,7 +3,7 @@ const { COLLECTIONS, SEAT_STATUS } = require('../utils/constants')
 
 const MESSAGES = {
   BOOKING_SUCCESS: 'successfully reserved',
-  BOOKING_FAILED: 'booking failed, please check seat number and check again',
+  BOOKING_FAILED: 'booking failed, please check if seat number is valid and free and try again',
   RESET_SUCCESS: 'all seats successfully reset'
 }
 
@@ -33,6 +33,7 @@ async function reserveSeat (seatNumber, passenger) {
     bookingDetails.message = MESSAGES.BOOKING_FAILED
   }
 
+  // Booking history can be logged here
   return bookingDetails
 }
 

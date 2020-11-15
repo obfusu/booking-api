@@ -1,11 +1,13 @@
+/**
+ * @module
+ */
 const Router = require('koa-router')
 const api = require('koa-router-version')
 const router = new Router()
 
 const routesArray = require('./routes')
 
-let i
-for (i = 0; i < routesArray.length; i++) {
+for (let i = 0; i < routesArray.length; i++) {
   const currentRoute = routesArray[i]
 
   const method = currentRoute.method
@@ -14,12 +16,12 @@ for (i = 0; i < routesArray.length; i++) {
   const middlewares = currentRoute.middlewares || []
   const version = currentRoute.apiVersion
 
-  const versionedController = {}
-  versionedController[version] = controller
+  const apiVersions = {}
+  apiVersions[version] = controller
 
   switch (method) {
     case 'post':
-      router.post(path, ...middlewares, api.version(versionedController))
+      router.post(path, ...middlewares, api.version(apiVersions))
       break
 
     // we dont have any non post methods in this project
