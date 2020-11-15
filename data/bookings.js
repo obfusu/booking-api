@@ -17,6 +17,7 @@
  */
 const { db } = require('../db/mongo')
 const { COLLECTIONS, SEAT_STATUS } = require('../utils/constants')
+const debug = require('../utils/debug')
 
 const MESSAGES = {
   BOOKING_SUCCESS: 'successfully reserved',
@@ -53,6 +54,7 @@ async function reserveSeat (seatNumber, passenger) {
     bookingDetails.message = MESSAGES.BOOKING_FAILED
   }
 
+  debug('seat #%d booked for passenger "%s"? %s', seatNumber, passenger.name, bookingDetails.booked)
   // Booking history can be logged here before returning
   return bookingDetails
 }
@@ -65,6 +67,7 @@ async function reserveSeat (seatNumber, passenger) {
 async function resetAllSeats () {
   await db.collection(COLLECTIONS.SEATS).updateMany({},
     { $set: { status: SEAT_STATUS.AVAILABLE }, $unset: { passenger: 1 } })
+  debug('all seats reset')
   return MESSAGES.RESET_SUCCESS
 }
 

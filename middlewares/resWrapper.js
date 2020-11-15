@@ -1,9 +1,10 @@
 /**
  * @module
  */
-const log = require('../utils/logger')
 const hostname = require('os').hostname()
 const uuid = require('uuid')
+const log = require('../utils/logger')
+const debug = require('../utils/debug')
 
 /**
  * Middleware to format response
@@ -46,6 +47,7 @@ async function resWrapper (ctx, next) {
 
     log.error({ req: ctx.req, res: ctx.res, reqId: ctx.state.reqId, stack: err.stack, reqBody: ctx.request.body })
   }
+  debug('%s %s, statuscode %s', ctx.method, ctx.url, ctx.res.statusCode)
 }
 
 module.exports = resWrapper

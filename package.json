@@ -8,7 +8,9 @@
     "test": "jest",
     "test-coverage": "jest --coverage",
     "lint": "standard",
-    "docs": "jsdoc -c .jsdoc.json"
+    "docs": "jsdoc -c .jsdoc.json",
+    "start": "node api.js",
+    "start-debug": "DEBUG=cmt-debug* node api.js"
   },
   "author": "77ganesh",
   "license": "ISC",
