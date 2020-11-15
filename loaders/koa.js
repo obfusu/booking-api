@@ -1,3 +1,12 @@
+/**
+ * This bootstraps koa server
+ *
+ * <br>
+ * Loads server level middlewares, configs,
+ * mounts app routes and handles 404
+ *
+ * @module
+ */
 const bodyParser = require('koa-bodyparser')
 
 const router = require('../routes')
