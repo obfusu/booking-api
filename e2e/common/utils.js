@@ -3,6 +3,12 @@ const initServer = require('../../api')
 const mongo = require('../../db/mongo')
 
 const { ADMIN_CREDS, NON_ADMIN_USER_CREDS } = require('./constants')
+const { NODE_ENV } = require('../../utils/constants')
+
+if (NODE_ENV.startsWith('prod')) {
+  console.error('Its dangerous to run in prod, aborting...')
+  process.exit(1)
+}
 
 async function setup () {
   const appServer = await initServer()
