@@ -7,6 +7,7 @@ const jwtSecret = config.jwtSecret
 const users = require('../data/users')
 const bookings = require('../data/bookings')
 const jwtAuth = require('../middlewares/auth')
+const { ERRORS, UnauthorizedError } = require('../utils/errors')
 
 router.post('/login', async ctx => {
   const params = ctx.request.body
@@ -14,13 +15,13 @@ router.post('/login', async ctx => {
 
   // TODO: use constant time string comparision to prevent timing attacks
   if (data && data.hash === params.hash) {
-    const token = jwt.sign({ email: data._id, admin: data.admin, expiresIn: '15m' }, jwtSecret)
+    const token = jwt.sign({ email: data._id, isAdmin: data.isAdmin, expiresIn: '15m' }, jwtSecret)
     ctx.state.result = { token }
     return
   }
 
-  // Implicit else on not auth
-  ctx.throw(401, 'bad_creds')
+  // Implicit else on miss
+  throw UnauthorizedError(ERRORS.BAD_CREDS)
 })
 
 router.post('/seat/reserve', jwtAuth, async ctx => {
@@ -30,8 +31,8 @@ router.post('/seat/reserve', jwtAuth, async ctx => {
 })
 
 router.post('/seat/reset', jwtAuth, async ctx => {
-  if (!ctx.state.user.admin) {
-    return ctx.throw(401, 'not_an_admin')
+  if (!ctx.state.user?.isAdmin) {
+    throw UnauthorizedError(ERRORS.NOT_ADMIN)
   }
   ctx.state.result = await bookings.resetAllSeats()
 })

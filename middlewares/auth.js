@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 const config = require('config')
 const util = require('util')
+const { ERRORS, UnauthorizedError } = require('../utils/errors')
 
 const jwtSecret = config.jwtSecret
 const jwtVerify = util.promisify(jwt.verify)
@@ -15,10 +16,10 @@ async function jwtAuth (ctx, next) {
       ctx.state.user = user
       return next()
     } catch (err) {
-      return ctx.throw(401, err)
+      throw UnauthorizedError(err.message)
     }
   } else {
-    ctx.throw(401, 'authorzation_token_missing')
+    throw UnauthorizedError(ERRORS.AUTH_TOKEN_MISSING)
   }
 }
 
