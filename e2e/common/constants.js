@@ -1,15 +1,15 @@
 const ADMIN_CREDS = {
-  email: 'admin@cmt.com',
-  hash: ''
+  email: 'admin@createmytrip.com',
+  hash: 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86'
 }
 
 const NON_ADMIN_USER_CREDS = {
-  email: 'user@cmt.com',
-  hash: ''
+  email: 'user@createmytrip.com',
+  hash: 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86'
 }
 
 const BAD_CREDS = {
-  name: 'wrong',
+  email: 'wrong',
   hash: 'wrong'
 }
 
