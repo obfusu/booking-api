@@ -1,6 +1,12 @@
 const { db } = require('../db/mongo')
 const { COLLECTIONS, SEAT_STATUS } = require('../utils/constants')
 
+const MESSAGES = {
+  BOOKING_SUCCESS: 'successfully reserved',
+  BOOKING_FAILED: 'booking failed, please check seatNumber and check again',
+  RESET_SUCCESS: 'all seats successfully reset'
+}
+
 /**
  * Reserve a seat
  *
@@ -12,19 +18,31 @@ async function reserveSeat (seatNumber, passenger) {
     .updateOne({ _id: seatNumber, status: SEAT_STATUS.AVAILABLE },
       { $set: { status: SEAT_STATUS.BOOKED, passenger: passenger } })
 
-  if (data && data.result.nModified) {
-    return true
-  } else {
-    return false
+  const bookingDetails = {
+    booked: false,
+    seatNumber,
+    passenger,
+    message: null
   }
+
+  if (data && data.result.nModified) {
+    bookingDetails.booked = true
+    bookingDetails.message = MESSAGES.BOOKING_SUCCESS
+  } else {
+    bookingDetails.booked = false
+    bookingDetails.message = MESSAGES.BOOKING_FAILED
+  }
+
+  return bookingDetails
 }
 
 /**
  * Reset booking states of all seats
  */
 async function resetAllSeats () {
-  return db.collection(COLLECTIONS.SEATS).updateMany({},
+  await db.collection(COLLECTIONS.SEATS).updateMany({},
     { $set: { status: SEAT_STATUS.AVAILABLE }, $unset: { passenger: 1 } })
+  return MESSAGES.RESET_SUCCESS
 }
 
 module.exports = {

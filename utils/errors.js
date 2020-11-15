@@ -11,7 +11,15 @@ function UnauthorizedError (message) {
   }
 }
 
+function ConflictError (message) {
+  return {
+    status: 409,
+    message
+  }
+}
+
 module.exports = {
   ERRORS,
-  UnauthorizedError
+  UnauthorizedError,
+  ConflictError
 }

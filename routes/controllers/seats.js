@@ -1,10 +1,15 @@
 const bookings = require('../../data/bookings')
-const { ERRORS, UnauthorizedError } = require('../../utils/errors')
+const { ERRORS, UnauthorizedError, ConflictError } = require('../../utils/errors')
 
 async function reserveSeat (ctx) {
   const params = ctx.request.body
   const { seatNumber, passenger } = params
-  ctx.state.result = await bookings.reserveSeat(seatNumber, passenger)
+
+  const bookingDetails = await bookings.reserveSeat(seatNumber, passenger)
+  ctx.state.result = bookingDetails
+  if (!bookingDetails.booked) {
+    throw ConflictError()
+  }
 }
 
 async function resetAllSeats (ctx) {
