@@ -2,7 +2,7 @@
 
 Required softwares
 ```
-node 12+
+node 14+
 mongodb 3.6+
 ```
 
