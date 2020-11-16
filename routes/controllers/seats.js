@@ -1,6 +1,6 @@
 /** @module */
 const bookings = require('../../data/bookings')
-const { ERRORS, UnauthorizedError, ConflictError } = require('../../utils/errors')
+const { ERRORS, ForbiddenError, ConflictError } = require('../../utils/errors')
 
 /**
  * Koa controller for reserving seats
@@ -25,7 +25,7 @@ async function reserveSeat (ctx) {
  */
 async function resetAllSeats (ctx) {
   if (!ctx.state.user?.isAdmin) {
-    throw UnauthorizedError(ERRORS.NOT_ADMIN)
+    throw ForbiddenError(ERRORS.NOT_ADMIN)
   }
   ctx.state.result = await bookings.resetAllSeats()
 }

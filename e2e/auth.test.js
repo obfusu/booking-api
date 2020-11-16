@@ -70,12 +70,12 @@ describe('authenticated routes', () => {
     expect(res.statusCode).toEqual(200)
   })
 
-  it('non admin token should give 401 for /seats/reset', async () => {
+  it('non admin token should give 403 for /seats/reset', async () => {
     const res = await request(app)
       .post('/seats/reset')
       .set(getAuthHeader(nonAdminUserToken))
 
-    expect(res.statusCode).toEqual(401)
+    expect(res.statusCode).toEqual(403)
     expect(res.body.message).toEqual(ERRORS.NOT_ADMIN)
   })
 

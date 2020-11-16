@@ -18,8 +18,16 @@ function ConflictError (message) {
   }
 }
 
+function ForbiddenError (message) {
+  return {
+    status: 403,
+    message
+  }
+}
+
 module.exports = {
   ERRORS,
   UnauthorizedError,
-  ConflictError
+  ConflictError,
+  ForbiddenError
 }
